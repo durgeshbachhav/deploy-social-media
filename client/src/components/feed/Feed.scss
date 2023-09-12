@@ -1,0 +1,28 @@
+.Feed {
+
+  margin-top: 60px;
+  
+  .container {
+    display: flex;
+    gap: 20px;
+    
+  }
+  .left-part {
+    flex: 2;
+    overflow-y: auto;
+    background-color: rgba(6, 30, 30, 0.462);
+    padding: 20px;
+    
+    
+  }
+  .right-part {
+    flex: 1;
+    margin-top: 40px;
+  }
+  .suggestions {
+    margin-top: 40px;
+  }
+  .title {
+    margin-bottom: 12px;
+  }
+}
