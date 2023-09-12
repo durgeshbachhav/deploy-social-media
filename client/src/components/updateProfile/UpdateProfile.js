@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './UpdateProfile.scss'
 import bgImg from '../../assets/user.png'
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoading, updateMyProfile } from '../../redux/slices/appConfigSlice';
+import {  updateMyProfile } from '../../redux/slices/appConfigSlice';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -29,7 +29,6 @@ const UpdateProfile = () => {
           fileReader.onload = () => {
                if (fileReader.readyState === fileReader.DONE) {
                     setUserImg(fileReader.result);
-                    console.log("img data", fileReader.result);
                }
           }
 

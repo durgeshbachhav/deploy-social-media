@@ -16,7 +16,6 @@ export const getUserProfile = createAsyncThunk('user/getUserProfile', async (bod
      try {
           // thunkAPI.dispatch(setLoading(true))
           const response = await axiosClient.post('/user/getUserProfile', body);
-          console.log('user profile from postSlice : ', response.result)
           return response.result;
      } catch (error) {
           return Promise.reject(error);

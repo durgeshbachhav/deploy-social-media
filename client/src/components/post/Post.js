@@ -20,7 +20,6 @@ const Post = ({ post }) => {
                postId: post._id,
           }))
      }
-     console.log('post', post)
      return (
           <div className="Post boxshodow">
                <div className="heading" onClick={() => navigate(`/profile/${post.owner._id}`)}>
