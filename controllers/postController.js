@@ -15,6 +15,7 @@ const CreatePostController = async (req, res) => {
           const cloudImg = await cloudinary.uploader.upload(postImg, {
                folder: 'postImg'
           })
+          console.log('cloud img ===>',cloudImg)
           const owner = req._id;
           const user = await User.findById(req._id);
           const post = await Post.create({
@@ -25,10 +26,12 @@ const CreatePostController = async (req, res) => {
                     url: cloudImg.url
                },
           })
+
           user.posts.push(post._id);
           await user.save();
           console.log("user ", user)
           console.log("post ", post)
+          console.log('cloud img===>',cloudImg.url)
           return res.json(success(200, { post }))
 
 

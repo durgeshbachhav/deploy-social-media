@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './UpdateProfile.scss'
 import bgImg from '../../assets/user.png'
 import { useDispatch, useSelector } from 'react-redux';
-import {  updateMyProfile } from '../../redux/slices/appConfigSlice';
+import { updateMyProfile } from '../../redux/slices/appConfigSlice';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -35,9 +35,10 @@ const UpdateProfile = () => {
      }
      function handleSubmit(e) {
           e.preventDefault();
-          dispatch(updateMyProfile({
-               name, bio, userImg
-          }))
+          dispatch(updateMyProfile({ name, bio, userImg })).then(() => {
+               // After the profile is updated, navigate to the profile page
+               navigate(`/profile/${myProfile.userId}`);
+          });
      }
 
      return (

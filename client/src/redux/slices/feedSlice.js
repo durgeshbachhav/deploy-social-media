@@ -44,6 +44,7 @@ const feedSlice = createSlice({
      name: 'feedSlice',
      initialState: {
           feedData: {},
+          isLoading:false,
      },
 
      //jab bhi async thunk dal rahe hote ho
@@ -53,7 +54,6 @@ const feedSlice = createSlice({
           }).addCase(likeAndUnlikePost.fulfilled, (state, action) => {
                const post = action.payload;
                const index = state?.feedData?.posts?.findIndex((item) => item._id === post._id)
-               console.log('like feed', post, index);
                if (index !== undefined && index != -1) {
                     state.feedData.posts[index] = post;
                }

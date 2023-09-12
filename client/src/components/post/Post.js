@@ -12,14 +12,25 @@ const Post = ({ post }) => {
      const dispatch = useDispatch();
      const navigate = useNavigate();
 
-     
+
+
+     // async function handlePostLiked() {
+
+     //      dispatch(likeAndUnlikePost({
+     //           postId: post._id,
+     //      }))
+     // }
 
      async function handlePostLiked() {
-
-          dispatch(likeAndUnlikePost({
-               postId: post._id,
-          }))
+          // Optimistically update the UI
+          const updatedPost = { ...post, isLiked: !post.isLiked, likesCount: post.isLiked ? post.likesCount - 1 : post.likesCount + 1 };
+          dispatch(likeAndUnlikePost({ postId: post._id }))
+               .catch(() => {
+                    // If the API request fails, revert the UI
+                    dispatch(likeAndUnlikePost({ postId: post._id })); // This will undo the optimistic update
+               });
      }
+
      return (
           <div className="Post boxshodow">
                <div className="heading" onClick={() => navigate(`/profile/${post.owner._id}`)}>
@@ -35,7 +46,7 @@ const Post = ({ post }) => {
                          <h4>{`${post?.likesCount} likes`}</h4>
                     </div>
                     <p className='caption'>{post?.caption}</p>
-                    <h6 className='time-ago'>{post?.timeAgo}</h6>
+                    {/* <h6 className='time-ago'>{post?.timeAgo}</h6> */}
                </div>
           </div>
      )

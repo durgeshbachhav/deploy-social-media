@@ -45,22 +45,31 @@ const postsSlice = createSlice({
      initialState: {
           userProfile: {},
      },
+     reducers: {},  // You may have other reducers here
 
-     //jab bhi async thunk dal rahe hote ho
+     // When using async thunks, you should handle the fulfilled action
      extraReducers: (builder) => {
-          builder.addCase(getUserProfile.fulfilled, (state, action) => {
-               state.userProfile = action.payload;
-          }).addCase(likeAndUnlikePost.fulfilled, (state, action) => {
-               const post = action.payload;
-               const index = state.userProfile?.posts?.findIndex((item) => item._id === post._id)
-               console.log('postSlice', index);
-               if (index !== undefined && index !== -1) {
-                    state.userProfile.posts[index] = post;
-               }
-          })
-     }
+          builder
+               .addCase(getUserProfile.fulfilled, (state, action) => {
+                    state.userProfile = action.payload;
+               })
+               .addCase(likeAndUnlikePost.fulfilled, (state, action) => {
+                    const post = action.payload;
 
-})
+                    // Check if userProfile.posts is defined before trying to find the index
+                    if (state.userProfile?.posts) {
+                         const index = state.userProfile.posts.findIndex((item) => item._id === post._id);
+
+                         // Check if the index is valid (not undefined and not -1) before updating
+                         if (index !== undefined && index !== -1) {
+                              // Use immer.js to update the state immutably
+                              state.userProfile.posts[index] = post;
+                         }
+                    }
+               });
+     },
+});
 
 export default postsSlice.reducer;
+
 

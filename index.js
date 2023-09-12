@@ -23,9 +23,8 @@ cloudinary.config({
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json({ extended: true }))
-app.use(express.json({ limit: '10mb' }))
+app.use(express.json({ limit: '25mb' }));
+app.use(express.urlencoded({ limit: '25mb' }));
 app.use(morgan('common'))
 app.use(cookieparser())
 app.use(cors({
@@ -38,14 +37,13 @@ app.use('/posts', postRouter)
 app.use('/user', userRouter)
 
 
-app.use(express.static(path.join(__dirname,"./client/build")));
+app.use(express.static(path.join(__dirname, "./client/build")));
 
-app.get('*',function(_, res){
-     // res.sendFile(path.resolve("./client","build", "index.html"))
-     res.sendFile(path.join(__dirname,"./client/build/index.html"),
-     function(err){
-          res.status(500).send(err);
-     })
+app.get('*', function (_, res) {
+     res.sendFile(path.join(__dirname, "./client/build/index.html"),
+          function (err) {
+               res.status(500).send(err);
+          })
 })
 
 const PORT = process.env.PORT || 4200;

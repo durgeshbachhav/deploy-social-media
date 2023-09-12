@@ -17,19 +17,19 @@ export const TOAST_SUCCESS = 'toast_success'
 export const TOAST_FAILURE = 'toast_failure'
 
 function App() {
-  
+
   const isLoading = useSelector((state) => state.appConfigReducer.isLoading)
   const toastData = useSelector((state) => state.appConfigReducer.toastData)
   const loadingRef = useRef(null);
 
   useEffect(() => {
     if (isLoading) {
-      loadingRef.current?.continuousStart()
+      loadingRef.current?.continuousStart();
+    } else {
+      loadingRef.current?.complete(); // Corrected from 'loadingRef.currect?.complete();'
     }
-    else {
-      loadingRef.currect?.complete();
-    }
-  }, [isLoading])
+  }, [isLoading]);
+
 
 
   useEffect(() => {
